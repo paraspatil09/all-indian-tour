@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All Indian Tour</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f5f7fa;
+}
+
+/* HERO SECTION */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+  url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da');
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 18px;
+  max-width: 600px;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* FORM */
+.form-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin-top: -80px;
+}
+
+.form-box h2 {
+  text-align: center;
+  color: #ff5722;
+}
+
+.form-box input,
+.form-box textarea,
+.form-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.form-box button {
+  background: #ff5722;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form-box button:hover {
+  background: #e64a19;
+}
+
+/* PLACES */
+.places {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card .content {
+  padding: 15px;
+}
+
+.card h3 {
+  color: #ff5722;
+  margin: 0;
+}
+
+.card p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* FOOTER */
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 50px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+  <h1>All Indian Tour 🇮🇳</h1>
+  <p>Explore beautiful destinations, culture, and hidden gems of India</p>
+</div>
+
+<div class="container">
+
+<div class="form-box">
+  <h2>Add Tourist Place</h2>
+  <input type="text" id="placeName" placeholder="Place Name">
+  <input type="text" id="stateName" placeholder="State">
+  <textarea id="placeDesc" placeholder="Description"></textarea>
+  <input type="file" id="placeImage" accept="image/*">
+  <button onclick="addPlace()">Add Place</button>
+</div>
+
+<div class="places" id="placesList"></div>
+
+</div>
+
+<footer>
+  © 2025 All Indian Tour | Discover India
+</footer>
+
+<script>
+function addPlace() {
+  const name = document.getElementById("placeName").value;
+  const state = document.getElementById("stateName").value;
+  const desc = document.getElementById("placeDesc").value;
+  const imageInput = document.getElementById("placeImage");
+
+  if (!name || imageInput.files.length === 0) {
+    alert("Please enter place name and image");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function () {
+    const card = `
+      <div class="card">
+        <img src="${reader.result}">
+        <div class="content">
+          <h3>${name}</h3>
+          <p><strong>State:</strong> ${state}</p>
+          <p>${desc}</p>
+        </div>
+      </div>`;
+    document.getElementById("placesList").innerHTML += card;
+  };
+  reader.readAsDataURL(imageInput.files[0]);
+
+  document.getElementById("placeName").value = "";
+  document.getElementById("stateName").value = "";
+  document.getElementById("placeDesc").value = "";
+  document.getElementById("placeImage").value = "";
+}
+</script>
+
+</body>
+</html>
